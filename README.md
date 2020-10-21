@@ -50,3 +50,32 @@
 | П.Т.В.П.         | 3lWr0BTSW10qY5fajZjKSK | В нирване                                                                                  | 1W4jYmQBjXtuZW0qAjVg2S | 117353      | false    | 33         | album      | Гексаген                    | 62WvNAwN8JJOHOlDswU7H8 | 2001-01-01   | 30               | 0   | 1    | 4              | 0.00204      | 0.601        | 0.846  | 0.0000867        | 0.134    | -7.493   | 0.0392      | 0.846   | 128.698 |
 | ВСИГМЕ           | 5f6SoqrMsA8Rb4NuSnsgaj | Балконы                                                                                    | 798iNswoND89ZPdBLY6GCl | 240733      | false    | 8          | album      | Река                        | 1ySZBaUjbj3PjVnea7sJnt | 2017-08-10   | 11               | 1   | 1    | 4              | 0.184        | 0.83         | 0.731  | 0                | 0.131    | -5.418   | 0.136       | 0.365   | 121.977 |
 | Сергей Прокофьев | 4kHtgiRnpmFIV5Tm4BIs8l | Prokofiev: Romeo and Juliet, Op. 64, Act 1: No. 13, Dance of the Knights (Complete Ballet) | 7HSs4srn1qnZhh7WRWBVOk | 341693      | false    | 56         | album      | Prokofiev: Romeo and Juliet | 3M5idfqFUxge3skgZQu4R3 | 1973         | 52               | 0   | 1    | 4              | 0.927        | 0.209        | 0.101  | 0.9              | 0.0776   | -19.383  | 0.0403      | 0.153   | 85.851  |
+
+#### Информация о треке
+- `artist` - имя артиста или название группы
+- `artist_spotify_id` - уникальный идентификатор артиста в стриминговом сервисе Spotify (по нему можно будет джойнить таблицы, так как это `spotify_id` из таблицы с артистами)
+- `name` - название трека
+- `spotify_id` - уникальный идентификатор трека в стриминговом сервисе Spotify
+- `duration_ms` - длительность трека в миллисекундах
+- `explicit` - содержит ли текст трека нецензкрные выражения, может принимать знаения `true` или `false`
+- `popularity` - индекс популярности трека на Spotify *
+- `album_type` - тип альбома, может принимать значения `album` , `single` или `compilation`
+- `album_name` - Название альбома
+- `album_spotify_id` - уникальный идентификатор альбома в стриминговом сервисе Spotify
+- `release_date` - дата выхода альбома
+- `album_popularity` - - индекс популярности альбома на Spotify *
+
+#### Особенности аудио
+Каждый параметр подробно описан в документации к API Spotify: https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-features/
+- `key` - `int` - 
+- `mode` - `int`
+- `time_signature` - `int`
+- `acousticness` - `float`
+- `danceability` - `float`
+- `energy` - `float`
+- `instrumentalness` - `float`
+- `liveness` - `float`
+- `loudness` - `float`
+- `speechiness` - `float`
+- `valence` - `float`
+- `tempo` - `float`
