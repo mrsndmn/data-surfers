@@ -95,3 +95,20 @@
 | `speechiness`      | `float` | определяет наличие произнесенных слов в треке, принимает значения от 0.0 до 1.0                                                    |
 | `valence`          | `float` | описывает музыкальную "позитивность", передаваемую треком, принимает значения от 0.0 до 1.0                                        |
 | `tempo`            | `float` | предполагаемый общий темп трека в ударах в минуту                                                                                  |
+
+### Источники данных
+
+Поля `name`, `spotify_id`, `duration_ms`, `explicit`, `popularity`, `album_type`, `album_name`, `album_spotify_id`, `release_date` 
+получаем с помощью `GET` запроса на `https://api.spotify.com/v1//v1/artists/{id}/top-tracks`, 
+указывая в качестве значения параметра `id` Spotify ID артиста, который мы получили ранее, 
+а в значении параметра `market` указываем `RU`. \
+Ссылка на документацию: https://developer.spotify.com/documentation/web-api/reference/artists/get-artists-top-tracks/
+
+Поле `album_popularity` можно получить, сделав `GET` запрос на `https://api.spotify.com/v1/albums/{id}`, указав `album_spotify_id`, полученный ранее, в качестве значения для параметра `id`. \
+Ссылка на документацию: https://developer.spotify.com/documentation/web-api/reference/albums/get-album/
+
+Получить особенности аудио можно двумя способами:
+1. Для получения данных об одном треке нужно сделать `GET` запрос на `https://api.spotify.com/v1/audio-features/{id}`, указав его Spotify ID в качестве значения для параметра `id`. \
+Ссылка на документацию: https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-features/
+2. Чтобы получить данные о нескольких треках сразу, отправляем `GET` запрос на `https://api.spotify.com/v1/audio-features`, передавая Spotify ID этих треков через запятую как значение для параметра `ids`. \
+Ссылка на документацию: https://developer.spotify.com/documentation/web-api/reference/tracks/get-several-audio-features/
