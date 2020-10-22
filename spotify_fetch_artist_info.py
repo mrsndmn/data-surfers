@@ -68,6 +68,7 @@ def sp_artist_to_ds_artists(sp_artist):
     }
 
 
+@st.cache(suppress_st_warning=True, allow_output_mutation=True)
 def get_artists_info(artists_names):
     spotify_artists_data = {
         "spotify_id": [],
