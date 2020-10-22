@@ -97,7 +97,8 @@ def get_artists_top_tracks(artists_sp_ids):
                 }
 
                 for k in sp_artists_top_tracks_data.keys():
-                    sp_artists_top_tracks_data[k].append( sp_artist_top_tracks_data[k] )
+                    sp_artists_top_tracks_data[k].append(
+                        sp_artist_top_tracks_data[k])
 
         except Exception as e:
             st.write(e)

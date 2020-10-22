@@ -51,6 +51,7 @@ if sp_track_id != '':
 
 st.write(data)
 
+
 def get_tracks_features(sp_tracks_ids):
 
     batch_size = 10
@@ -68,20 +69,21 @@ def get_tracks_features(sp_tracks_ids):
                       "valence",
                       "tempo",
                       ]
-    sp_tracks_features = { k: [] for k in audio_features }
+    sp_tracks_features = {k: [] for k in audio_features}
     for i in StProgress(range(0, len(sp_tracks_ids), batch_size), title=f"Обкачиваем {len(sp_tracks_ids)} артистов"):
 
         try:
-            sp_tracks_ids_batch = sp_tracks_ids[i:min(i+batch_size, len(sp_tracks_ids))]
+            sp_tracks_ids_batch = sp_tracks_ids[i:min(
+                i+batch_size, len(sp_tracks_ids))]
             tracks_features_list = track_features(sp_tracks_ids_batch)
             # print(tracks_features_list)
             for tr in tracks_features_list:
                 for feature_name in audio_features:
                     if tr is not None:
-                        sp_tracks_features[feature_name].append(tr[feature_name])
+                        sp_tracks_features[feature_name].append(
+                            tr[feature_name])
                     else:
                         sp_tracks_features[feature_name].append(None)
-
 
         except Exception as e:
             st.write(e)
@@ -94,14 +96,12 @@ def get_tracks_features(sp_tracks_ids):
 sp_tracks_features = get_tracks_features(data['spotify_id'])
 
 st.subheader("Итого")
-st.write( len(data), len(sp_tracks_features) )
-# st.write(data)
-# st.write(sp_tracks_features)
+st.write(len(data), len(sp_tracks_features))
 
 data.reset_index(drop=True, inplace=True)
 sp_tracks_features.reset_index(drop=True, inplace=True)
 
-sp_tracks_features = pd.concat( (data, sp_tracks_features), axis=1)
+sp_tracks_features = pd.concat((data, sp_tracks_features), axis=1)
 
 st.write(sp_tracks_features)
 

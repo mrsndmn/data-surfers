@@ -19,6 +19,7 @@ def load_data(nrows):
     data = pd.read_csv(DATA_URL, nrows=nrows)
     return data
 
+
 st.subheader(len(pd.read_csv(DATA_URL)))
 
 data_load_state = st.text('Loading data...')
@@ -83,7 +84,7 @@ def get_artists_info(artists_names):
             spotify_artist_data = sp_artist_to_ds_artists(sp_artist)
 
             for k in spotify_artist_data.keys():
-                spotify_artists_data[k].append( spotify_artist_data[k] )
+                spotify_artists_data[k].append(spotify_artist_data[k])
 
         except Exception as e:
             st.write(e)
