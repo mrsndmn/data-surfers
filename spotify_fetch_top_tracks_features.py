@@ -20,8 +20,7 @@ def load_data(nrows):
 
 
 data_load_state = st.text('Loading data...')
-data = load_data(50000)
-# data = data.head(6000).tail(1000)
+data = load_data(None)
 
 data_load_state.text(f"Loaded {len(data)} not null artists")
 
@@ -103,15 +102,21 @@ sp_tracks_features.reset_index(drop=True, inplace=True)
 
 sp_tracks_features = pd.concat((data, sp_tracks_features), axis=1)
 
-st.write(sp_tracks_features)
-
+# приджойним имя артиста
 artist_info = pd.read_csv('artist_info.csv')
 artist_info['artist'] = artist_info['name']
 artist_info = artist_info[['artist', 'spotify_id']]
 artist_info.dropna(inplace=True)
 artist_info.info()
 
-sp_tracks_features = sp_tracks_features.set_index('spotify_id').join( artist_info.set_index('spotify_id') ).reset_index()
+sp_tracks_features = sp_tracks_features.set_index('artist_spotify_id').join( artist_info.set_index('spotify_id') ).reset_index()
+sp_tracks_features.rename(columns={'index': 'artist_spotify_id'}, inplace=True)
+
+cols = sp_tracks_features.columns.tolist()
+cols.insert(0, cols.pop(-1))
+sp_tracks_features = sp_tracks_features[cols]
+
+st.write(sp_tracks_features)
 
 sp_tracks_features.to_csv("artist_top_tracks_with_features.csv", index=False)
 
