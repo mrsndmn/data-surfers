@@ -34,7 +34,7 @@ def spotify_client():
     load_dotenv()
     return spotipy.Spotify(auth_manager=SpotifyClientCredentials())
 
-
+@st.cache(suppress_st_warning=True, allow_output_mutation=True)
 def artist_top_tracks(sp_artist_id):
     sp = spotify_client()
 
@@ -53,7 +53,7 @@ def get_album(sp_album_id):
     sp = spotify_client()
     return sp.album(sp_album_id)
 
-@st.cache(suppress_st_warning=True, allow_output_mutation=True)
+# @st.cache(suppress_st_warning=True, allow_output_mutation=True)
 def get_artists_top_tracks(artists_sp_ids):
     sp_artists_top_tracks_data = pd.DataFrame({
         "artist_spotify_id": [],
@@ -69,7 +69,9 @@ def get_artists_top_tracks(artists_sp_ids):
         "album_popularity": [],
         })
 
+    curr_artist = st.text("")
     for artist_sp_id in StProgress(artists_sp_ids, title=f"Обкачиваем {len(artists_sp_ids)} артистов"):
+        curr_artist.text = "curr artist " + artist_sp_id
         try:
             sp_artist_top_tracks = artist_top_tracks(artist_sp_id)
 
@@ -88,8 +90,8 @@ def get_artists_top_tracks(artists_sp_ids):
                     "release_date":  track['album']['release_date'],
                     "album_popularity":  sp_album['popularity'],
                 }
+                sp_artists_top_tracks_data = sp_artists_top_tracks_data.append( sp_artist_top_tracks_data, ignore_index=True )
 
-            sp_artists_top_tracks_data = sp_artists_top_tracks_data.append( sp_artist_top_tracks_data, ignore_index=True )
         except Exception as e:
             st.write(e)
             st.text("Some errors on processing artists on " + artist_sp_id)
@@ -101,7 +103,7 @@ def get_artists_top_tracks(artists_sp_ids):
 sp_artists_top_tracks_data = get_artists_top_tracks( data['spotify_id'] )
 
 st.subheader("Итого")
-st.write( sp_artists_top_tracks_data.head() )
+st.write( sp_artists_top_tracks_data.head(50) )
 
 sp_artists_top_tracks_data.to_csv("artist_top_tracks.csv")
 
