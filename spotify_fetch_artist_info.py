@@ -99,7 +99,7 @@ st.subheader("Итого")
 result_artist_info_df = pd.concat((data, spotify_artists_data), axis=1)
 st.write( result_artist_info_df )
 
-result_artist_info_df.to_csv("artist_info.csv")
+result_artist_info_df.to_csv("artist_info.csv", index=False)
 
 st.subheader("Кол-во артистов, по которым смогли найти что-то в поиске")
 st.write( len(result_artist_info_df[ result_artist_info_df['followers'] > 0 ]) )

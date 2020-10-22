@@ -23,6 +23,7 @@ data_load_state = st.text('Loading data...')
 data = load_data(10000)
 
 data = data[data['spotify_id'].notnull()]
+data = data.iloc[4187:]
 
 data_load_state.text(f"Loaded {len(data)} not null artists")
 
@@ -105,6 +106,6 @@ sp_artists_top_tracks_data = get_artists_top_tracks( data['spotify_id'] )
 st.subheader("Итого")
 st.write( sp_artists_top_tracks_data.head(50) )
 
-sp_artists_top_tracks_data.to_csv("artist_top_tracks.csv")
+sp_artists_top_tracks_data.to_csv("artist_top_tracks.csv", index=False)
 
 st.subheader(f"Кол-во треков: {len(sp_artists_top_tracks_data)}")
