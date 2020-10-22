@@ -131,3 +131,4 @@
 | `spotify_fetch_artist_top_tracks.py` | Обкачка топов треков со spotify |
 | `spotify_fetch_top_tracks_features.py` | Обкачка фичей для треков со spotify |
 
+<!-- todo add requrements.txt -->
