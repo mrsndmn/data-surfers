@@ -2,6 +2,10 @@
 
 ## Данные об артистах
 
+```
+./artist_info.csv
+```
+
 ### Структура и образцы данных
 
 |      artist      |            musicbrainz_id            |       spotify_id       |  type  | followers |                                        genres                                        | popularity |
@@ -44,6 +48,10 @@
 
 
 ## Данные о лучших треках
+
+```
+./artist_top_tracks_with_features.csv
+```
 
 ### Структура и образцы данных
 
