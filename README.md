@@ -120,3 +120,14 @@
 Ссылка на документацию: https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-features/
 2. Чтобы получить данные о нескольких треках сразу, отправляем `GET` запрос на `https://api.spotify.com/v1/audio-features`, передавая Spotify ID этих треков через запятую как значение для параметра `ids`. \
 Ссылка на документацию: https://developer.spotify.com/documentation/web-api/reference/tracks/get-several-audio-features/
+
+
+## Скрипты
+
+| Скрипт | Задача |
+| -- | -- |
+| `musicbrainz_get_artists.py` | Обкачка артистов с musicbrainz |
+| `spotify_fetch_artist_info.py` | Обкачка артистов с spotify |
+| `spotify_fetch_artist_top_tracks.py` | Обкачка топов треков со spotify |
+| `spotify_fetch_top_tracks_features.py` | Обкачка фичей для треков со spotify |
+
