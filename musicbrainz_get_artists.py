@@ -1,29 +1,27 @@
 import requests
+from bs4 import BeautifulSoup
 import pandas as pd
-import time
 
-def MB_get_artists(limit, offset=0):
-    """
-    Функция принимает на вход лимит(сколько пользователей нужно получить),
-    делает запрос по API Musicbrainz,
-    и выдаёт на выходе список российских артистов с полями: ["id", "type", "score", "name"]
-    """
-    data = [] # итоговый лист
-    while limit >= 0:
-        request = requests.get(url="https://musicbrainz.org/ws/2/artist", params={"query":"area:russia","fmt":"json","offset":offset,"limit":100})
-        json_data = request.json()["artists"]
-        print(abs(offset/100), end=" ")
-        offset += 100
-        limit -= 100
-        for artist in json_data:
-            sample = [artist.get(key) for key in ["id", "type", "score", "name"]]
-            data.append(sample)
-        time.sleep(0.5)
-    df = pd.DataFrame(data, columns=['musicbrainz_id', 'type', 'score', 'name'])
+
+def mb_parse_artists(page_limit):
+    artists_table = []
+    for page in range(1, page_limit + 1):
+        page = requests.get(
+            "https://musicbrainz.org/area/1f1fc3a4-9500-39b8-9f10-f0a465557eef/artists?page={}".format(page))
+        soup = BeautifulSoup(page.text)
+        artists = soup.find_all(role="row")
+
+        for i in range(1, len(artists)):
+            mb_id = artists[i].a["href"]
+            name = artists[i].bdi.text
+            band_type = artists[i].find_all("td", role="cell")[1].text
+            artists_table.append([mb_id, name, band_type])
+
+    df = pd.DataFrame(artists_table, columns=["mb_id", "name", "type"])
     df = df.drop_duplicates(subset=["name"])
+    df["mb_id"] = df["mb_id"].apply(lambda x: x[8:])
     return df
 
-
 if __name__ == "__main__":
-    data = MB_get_artists(15000)
+    data = mb_parse_artists(145)
     data.to_csv("musicbrainz_artists", index=False)
