@@ -20,7 +20,8 @@ def load_data(nrows):
 
 
 data_load_state = st.text('Loading data...')
-data = load_data(1000)
+data = load_data(50000)
+# data = data.head(6000).tail(1000)
 
 data_load_state.text(f"Loaded {len(data)} not null artists")
 
@@ -48,6 +49,8 @@ sp_track_id = st.text_input('', '')
 if sp_track_id != '':
     st.write(track_features(sp_track_id))
 
+st.write(data)
+
 def get_tracks_features(sp_tracks_ids):
 
     batch_size = 10
@@ -71,13 +74,18 @@ def get_tracks_features(sp_tracks_ids):
         try:
             sp_tracks_ids_batch = sp_tracks_ids[i:min(i+batch_size, len(sp_tracks_ids))]
             tracks_features_list = track_features(sp_tracks_ids_batch)
+            # print(tracks_features_list)
             for tr in tracks_features_list:
                 for feature_name in audio_features:
-                    sp_tracks_features[feature_name].append(tr[feature_name])
+                    if tr is not None:
+                        sp_tracks_features[feature_name].append(tr[feature_name])
+                    else:
+                        sp_tracks_features[feature_name].append(None)
+
 
         except Exception as e:
             st.write(e)
-            st.text("Some errors on processing artists on i=" + i)
+            st.text("Some errors on processing artists on i=" + str(i))
             break
 
     return pd.DataFrame(sp_tracks_features)
@@ -86,10 +94,16 @@ def get_tracks_features(sp_tracks_ids):
 sp_tracks_features = get_tracks_features(data['spotify_id'])
 
 st.subheader("Итого")
+st.write( len(data), len(sp_tracks_features) )
+# st.write(data)
+# st.write(sp_tracks_features)
+
+data.reset_index(drop=True, inplace=True)
+sp_tracks_features.reset_index(drop=True, inplace=True)
 
 sp_tracks_features = pd.concat( (data, sp_tracks_features), axis=1)
 
-st.write(sp_tracks_features.head(50))
+st.write(sp_tracks_features)
 
 sp_tracks_features.to_csv("artist_top_tracks_with_features.csv", index=False)
 
