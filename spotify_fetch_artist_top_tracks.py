@@ -91,6 +91,7 @@ def get_artists_top_tracks(artists_sp_ids):
                     "release_date":  track['album']['release_date'],
                     "album_popularity":  sp_album['popularity'],
                 }
+                # вот это очень тупит, но я это слишком поздно понял!
                 sp_artists_top_tracks_data = sp_artists_top_tracks_data.append( sp_artist_top_tracks_data, ignore_index=True )
 
         except Exception as e:

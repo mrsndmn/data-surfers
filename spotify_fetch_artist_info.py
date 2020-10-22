@@ -78,6 +78,7 @@ def get_artists_info(artists_names):
         try:
             sp_artist = find_artist(artist_name)
             spotify_artist_data = sp_artist_to_ds_artists( sp_artist )
+            # вот это очень тупит, но я это слишком поздно понял!
             spotify_artists_data = spotify_artists_data.append( spotify_artist_data, ignore_index=True )
         except Exception as e:
             st.write(e)
