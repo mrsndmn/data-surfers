@@ -19,7 +19,7 @@ def load_data(nrows):
     data = pd.read_csv(DATA_URL, nrows=nrows)
     return data
 
-st.subheader( len(pd.read_csv(DATA_URL)) )
+st.subheader(len(pd.read_csv(DATA_URL)))
 
 data_load_state = st.text('Loading data...')
 data = load_data(10000)
@@ -50,7 +50,8 @@ def find_artist(artist_name):
 
     return results['artists']['items'][0]
 
-def sp_artist_to_ds_artists( sp_artist ):
+
+def sp_artist_to_ds_artists(sp_artist):
     if sp_artist is None:
         return {
             "spotify_id": "",
@@ -66,42 +67,45 @@ def sp_artist_to_ds_artists( sp_artist ):
         "popularity": sp_artist['popularity'],
     }
 
-@st.cache(suppress_st_warning=True, allow_output_mutation=True)
+
 def get_artists_info(artists_names):
-    spotify_artists_data = pd.DataFrame({
+    spotify_artists_data = {
         "spotify_id": [],
         "followers": [],
         "genres": [],
-        "popularity": []})
+        "popularity": [],
+    }
 
     for artist_name in StProgress(artists_names, title=f"Обкачиваем {len(artists_names)} артистов"):
         try:
             sp_artist = find_artist(artist_name)
-            spotify_artist_data = sp_artist_to_ds_artists( sp_artist )
-            # вот это очень тупит, но я это слишком поздно понял!
-            spotify_artists_data = spotify_artists_data.append( spotify_artist_data, ignore_index=True )
+            spotify_artist_data = sp_artist_to_ds_artists(sp_artist)
+
+            for k in spotify_artist_data.keys():
+                spotify_artists_data[k].append( spotify_artist_data[k] )
+
         except Exception as e:
             st.write(e)
             st.text("Some errors on processing artists on " + artist_name)
             break
 
-    return spotify_artists_data
+    return pd.DataFrame(spotify_artists_data)
+
 
 find_artist_name = st.text_input('Поиск артиста', '')
 st.text("Для классиков есть проблема:\nесли искать по ФИО, то, например `Сергей Васильевич Рахманинов` поиск найти не может,\nа `Рахманинов` может")
 if find_artist_name != '':
-    st.write( find_artist(find_artist_name) )
+    st.write(find_artist(find_artist_name))
 
-spotify_artists_data = get_artists_info( data['name'] )
-st.write( spotify_artists_data )
+spotify_artists_data = get_artists_info(data['name'])
+st.write(spotify_artists_data)
 
 
 st.subheader("Итого")
 result_artist_info_df = pd.concat((data, spotify_artists_data), axis=1)
-st.write( result_artist_info_df )
+st.write(result_artist_info_df)
 
 result_artist_info_df.to_csv("artist_info.csv", index=False)
 
 st.subheader("Кол-во артистов, по которым смогли найти что-то в поиске")
-st.write( len(result_artist_info_df[ result_artist_info_df['followers'] > 0 ]) )
-
+st.write(len(result_artist_info_df[result_artist_info_df['followers'] > 0]))
