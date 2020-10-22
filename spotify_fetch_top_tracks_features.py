@@ -105,6 +105,14 @@ sp_tracks_features = pd.concat((data, sp_tracks_features), axis=1)
 
 st.write(sp_tracks_features)
 
+artist_info = pd.read_csv('artist_info.csv')
+artist_info['artist'] = artist_info['name']
+artist_info = artist_info[['artist', 'spotify_id']]
+artist_info.dropna(inplace=True)
+artist_info.info()
+
+sp_tracks_features = sp_tracks_features.set_index('spotify_id').join( artist_info.set_index('spotify_id') ).reset_index()
+
 sp_tracks_features.to_csv("artist_top_tracks_with_features.csv", index=False)
 
 st.subheader(f"Кол-во треков: {len(sp_tracks_features)}")
