@@ -39,7 +39,9 @@
         - https://musicbrainz.org/doc/MusicBrainz_API/Search
     - Пример запроса
         - `GET` на http://musicbrainz.org/ws/2/artist/?query=area:russia&fmt=json&offset=0&limit=100
-        
+
+Полученные данные об артистах из Musicbrainz: [`./data/intermediate/musicbrainz_artists.csv`](./data/intermediate/musicbrainz_artists.csv)
+
 Остальные поля получаем в результате `GET` запросов к эндпоинту `https://api.spotify.com/v1/search` Spotify API.
 При отправке запроса в значении параметра `q` указываем имя артиста, а в значении параметра `type` указываем `artist`. \
 Ссылка на документацию: https://developer.spotify.com/documentation/web-api/reference/search/search/
@@ -110,6 +112,8 @@
 
 Поле `album_popularity` можно получить, сделав `GET` запрос на `https://api.spotify.com/v1/albums/{id}`, указав `album_spotify_id`, полученный ранее, в качестве значения для параметра `id`. \
 Ссылка на документацию: https://developer.spotify.com/documentation/web-api/reference/albums/get-album/
+
+Полученные данные о лучших треках артистов из Spotify: [`./data/intermediate/artist_top_tracks.csv`](./data/intermediate/artist_top_tracks.csv)
 
 Получить особенности аудио можно двумя способами:
 1. Для получения данных об одном треке нужно сделать `GET` запрос на `https://api.spotify.com/v1/audio-features/{id}`, указав его Spotify ID как значение параметра `id`. \
