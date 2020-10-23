@@ -120,11 +120,15 @@
 
 ## Скрипты
 
-| Скрипт | Задача |
-| -- | -- |
-| `musicbrainz_get_artists.py` | Обкачка артистов с musicbrainz |
-| `spotify_fetch_artist_info.py` | Обкачка артистов с spotify |
-| `spotify_fetch_artist_top_tracks.py` | Обкачка топов треков со spotify |
-| `spotify_fetch_top_tracks_features.py` | Обкачка фичей для треков со spotify |
+### [`./scrapers`](./scrapers)
 
-<!-- todo add requrements.txt -->
+| Скрипт                                                                                   | Задача                                             |
+|------------------------------------------------------------------------------------------|----------------------------------------------------|
+| [`musicbrainz_get_artists.py`](./scrapers/musicbrainz_get_artists.py)                    | Извлечение российских артистов из базы Musicbrainz |
+| [`spotify_fetch_artist_info.py`](.scrapers/spotify_fetch_artist_info.py)                 | Извлечение данных об артистах из Spotify           |
+| [`spotify_fetch_artist_top_tracks.py`](.scrapers/spotify_fetch_artist_top_tracks.py)     | Извлечение лучших треков артистов из Spotify       |
+| [`spotify_fetch_top_tracks_features.py`](.scrapers/spotify_fetch_top_tracks_features.py) | Извлечение особенностей аудио треков из Spotify    |
+
+### Список зависимостей
+
+### [`./scrapers/requirements.txt`](./scrapers/requirements.txt)
