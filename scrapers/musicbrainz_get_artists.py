@@ -28,4 +28,4 @@ def mb_parse_artists(page_limit: int) -> pd.DataFrame:
 
 if __name__ == "__main__":
     data = mb_parse_artists(145)
-    data.to_csv("../data/musicbrainz_artists.csv", index=False)
+    data.to_csv("../data/intermediate/musicbrainz_artists.csv", index=False)

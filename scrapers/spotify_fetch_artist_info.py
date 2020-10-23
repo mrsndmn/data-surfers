@@ -10,7 +10,7 @@ from scrapers.st_utils import StProgress
 
 st.title("Spotify artist info downloader")
 
-DATA_URL = "../data/musicbrainz_artists.csv"
+DATA_URL = "../data/intermediate/musicbrainz_artists.csv"
 
 
 @st.cache

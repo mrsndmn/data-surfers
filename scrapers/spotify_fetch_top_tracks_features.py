@@ -10,7 +10,7 @@ from scrapers.st_utils import StProgress
 
 st.title("Spotify tracks features downloader")
 
-DATA_URL = "../data/artist_top_tracks.csv"
+DATA_URL = "../data/intermediate/artist_top_tracks.csv"
 
 
 def load_data(nrows: int) -> pd.DataFrame:
