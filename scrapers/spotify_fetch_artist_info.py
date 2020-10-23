@@ -1,13 +1,12 @@
 import streamlit as st
 import pandas as pd
-import numpy as np
 
 from dotenv import load_dotenv
 
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 
-from st_utils import StProgress
+from scrapers.st_utils import StProgress
 
 st.title('Spotify artist info downloader')
 

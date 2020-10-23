@@ -1,13 +1,12 @@
 import streamlit as st
 import pandas as pd
-import numpy as np
 
 from dotenv import load_dotenv
 
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 
-from st_utils import StProgress
+from scrapers.st_utils import StProgress
 
 st.title('Spotify tracks features downloader')
 
@@ -103,7 +102,7 @@ sp_tracks_features.reset_index(drop=True, inplace=True)
 sp_tracks_features = pd.concat((data, sp_tracks_features), axis=1)
 
 # приджойним имя артиста
-artist_info = pd.read_csv('data/artist_info.csv')
+artist_info = pd.read_csv('../data/artist_info.csv')
 artist_info['artist'] = artist_info['name']
 artist_info = artist_info[['artist', 'spotify_id']]
 artist_info.dropna(inplace=True)
