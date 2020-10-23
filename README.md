@@ -2,9 +2,7 @@
 
 ## Данные об артистах
 
-```
-./artist_info.csv
-```
+### [`./data/artists.csv`](./data/artists.csv)
 
 ### Структура и образцы данных
 
@@ -49,9 +47,7 @@
 
 ## Данные о лучших треках
 
-```
-./artist_top_tracks_with_features.csv
-```
+### [`./data/tracks.csv`](./data/tracks.csv)
 
 ### Структура и образцы данных
 
