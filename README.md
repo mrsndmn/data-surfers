@@ -2,9 +2,7 @@
 
 ## Данные об артистах
 
-```
-./artist_info.csv
-```
+### [`./data/artists.csv`](./data/artists.csv)
 
 ### Структура и образцы данных
 
@@ -18,15 +16,15 @@
 
 #### Описание полей в таблице
 
-| Поле             | Тип    | Описание                                                               |
-|------------------|--------|------------------------------------------------------------------------|
-| `artist`         | `str`  | имя артиста или название группы                                        |
-| `musicbrainz_id` | `str`  | уникальный идентификатор артиста в музыкальной базе данных Musicbrainz |
-| `spotify_id`     | `str`  | уникальный идентификатор артиста в стриминговом сервисе Spotify        |
-| `type`           | `str`  | тип исполнителя, может принимать значения `Person` или `Group`         |
-| `followers`      | `int`  | количество подписчиков артиста на Spotify                              |
-| `genres`         | `list` | музыкальные жанры артиста                                              |
-| `popularity`     | `int`  | индекс популярности артиста на Spotify *                               |
+| Поле             | Тип    | Описание                                                                                                   |
+|------------------|--------|------------------------------------------------------------------------------------------------------------|
+| `artist`         | `str`  | имя артиста или название группы                                                                            |
+| `musicbrainz_id` | `str`  | уникальный идентификатор артиста в музыкальной базе данных Musicbrainz                                     |
+| `spotify_id`     | `str`  | уникальный идентификатор артиста в стриминговом сервисе Spotify, если он там представлен                   |
+| `type`           | `str`  | тип исполнителя, может принимать значения `Person`, `Group`, `Other`, `Orchestra`, `Choir` или `Character` |
+| `followers`      | `int`  | количество подписчиков артиста на Spotify                                                                  |
+| `genres`         | `list` | музыкальные жанры артиста                                                                                  |
+| `popularity`     | `int`  | индекс популярности артиста на Spotify *                                                                   |
 
 \* Может принимать значения от 0 до 100, где 100 означает самую высокую популярность. Рассчитывается на основе популярности всех треков артиста.
 
@@ -41,7 +39,9 @@
         - https://musicbrainz.org/doc/MusicBrainz_API/Search
     - Пример запроса
         - `GET` на http://musicbrainz.org/ws/2/artist/?query=area:russia&fmt=json&offset=0&limit=100
-        
+
+Полученные данные об артистах из Musicbrainz: [`./data/intermediate/musicbrainz_artists.csv`](./data/intermediate/musicbrainz_artists.csv)
+
 Остальные поля получаем в результате `GET` запросов к эндпоинту `https://api.spotify.com/v1/search` Spotify API.
 При отправке запроса в значении параметра `q` указываем имя артиста, а в значении параметра `type` указываем `artist`. \
 Ссылка на документацию: https://developer.spotify.com/documentation/web-api/reference/search/search/
@@ -49,9 +49,7 @@
 
 ## Данные о лучших треках
 
-```
-./artist_top_tracks_with_features.csv
-```
+### [`./data/tracks.csv`](./data/tracks.csv)
 
 ### Структура и образцы данных
 
@@ -115,6 +113,8 @@
 Поле `album_popularity` можно получить, сделав `GET` запрос на `https://api.spotify.com/v1/albums/{id}`, указав `album_spotify_id`, полученный ранее, в качестве значения для параметра `id`. \
 Ссылка на документацию: https://developer.spotify.com/documentation/web-api/reference/albums/get-album/
 
+Полученные данные о лучших треках артистов из Spotify: [`./data/intermediate/artist_top_tracks.csv`](./data/intermediate/artist_top_tracks.csv)
+
 Получить особенности аудио можно двумя способами:
 1. Для получения данных об одном треке нужно сделать `GET` запрос на `https://api.spotify.com/v1/audio-features/{id}`, указав его Spotify ID как значение параметра `id`. \
 Ссылка на документацию: https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-features/
@@ -124,11 +124,15 @@
 
 ## Скрипты
 
-| Скрипт | Задача |
-| -- | -- |
-| `musicbrainz_get_artists.py` | Обкачка артистов с musicbrainz |
-| `spotify_fetch_artist_info.py` | Обкачка артистов с spotify |
-| `spotify_fetch_artist_top_tracks.py` | Обкачка топов треков со spotify |
-| `spotify_fetch_top_tracks_features.py` | Обкачка фичей для треков со spotify |
+### [`./scrapers`](./scrapers)
 
-<!-- todo add requrements.txt -->
+| Скрипт                                                                                   | Задача                                             |
+|------------------------------------------------------------------------------------------|----------------------------------------------------|
+| [`musicbrainz_get_artists.py`](./scrapers/musicbrainz_get_artists.py)                    | Извлечение российских артистов из базы Musicbrainz |
+| [`spotify_fetch_artist_info.py`](./scrapers/spotify_fetch_artist_info.py)                 | Извлечение данных об артистах из Spotify           |
+| [`spotify_fetch_artist_top_tracks.py`](./scrapers/spotify_fetch_artist_top_tracks.py)     | Извлечение лучших треков артистов из Spotify       |
+| [`spotify_fetch_top_tracks_features.py`](./scrapers/spotify_fetch_top_tracks_features.py) | Извлечение особенностей аудио треков из Spotify    |
+
+### Список зависимостей
+
+### [`./scrapers/requirements.txt`](./scrapers/requirements.txt)

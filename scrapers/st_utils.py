@@ -1,5 +1,6 @@
 import streamlit as st
 
+
 class StProgress:
     def __init__(self, iterable, title=None):
         self.title_text = title
@@ -20,5 +21,3 @@ class StProgress:
             current_prog = self.i / self.length
             self.prog_bar.progress(current_prog)
             print(self.title_text + str(self.i) + " / " + str(self.length))
-
-
