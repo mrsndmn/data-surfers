@@ -125,9 +125,9 @@
 | Скрипт                                                                                   | Задача                                             |
 |------------------------------------------------------------------------------------------|----------------------------------------------------|
 | [`musicbrainz_get_artists.py`](./scrapers/musicbrainz_get_artists.py)                    | Извлечение российских артистов из базы Musicbrainz |
-| [`spotify_fetch_artist_info.py`](.scrapers/spotify_fetch_artist_info.py)                 | Извлечение данных об артистах из Spotify           |
-| [`spotify_fetch_artist_top_tracks.py`](.scrapers/spotify_fetch_artist_top_tracks.py)     | Извлечение лучших треков артистов из Spotify       |
-| [`spotify_fetch_top_tracks_features.py`](.scrapers/spotify_fetch_top_tracks_features.py) | Извлечение особенностей аудио треков из Spotify    |
+| [`spotify_fetch_artist_info.py`](./scrapers/spotify_fetch_artist_info.py)                 | Извлечение данных об артистах из Spotify           |
+| [`spotify_fetch_artist_top_tracks.py`](./scrapers/spotify_fetch_artist_top_tracks.py)     | Извлечение лучших треков артистов из Spotify       |
+| [`spotify_fetch_top_tracks_features.py`](./scrapers/spotify_fetch_top_tracks_features.py) | Извлечение особенностей аудио треков из Spotify    |
 
 ### Список зависимостей
 
